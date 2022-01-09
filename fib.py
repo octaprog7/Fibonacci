@@ -41,7 +41,8 @@ class Fibonacci:
         return self  # FibIter()
 
     def reset(self):
-        self.__init__(self.limit)
+        self.counter = 0
+        self.a, self.b = 0, 1
 
     def __len__(self):
         return self.counter
