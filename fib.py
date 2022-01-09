@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """Each next element of the Fibonacci series is obtained by adding the previous two. Starting at 1 and 2,
-the first 10 items will be: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ..."""
+the first 10 items will be: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
+
+Copyright (c) 2021-2022, Roman Kaban.
+License:    GPL-3.0
+"""
+
+__author__ = "Roman Kaban"
+__version__ = "0.9"
 
 
 class Fibonacci:
