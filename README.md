@@ -1,1 +1,1 @@
-# Fibonacci class with iterator for amy project.
+# Fibonacci class with iterator for any project.
