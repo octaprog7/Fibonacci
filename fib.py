@@ -39,11 +39,11 @@ class Fibonacci:
 
     def __next__(self):
         """Часть протокола итератора"""
-        # проверка. счетчик в диапазоне
+        # Проверка. Счетчик в диапазоне
         self._check_value(self.limit, 0, self._counter)
 
         result = self._a + self._b
-        # проверка. результат в диапазоне
+        # Проверка. Результат в диапазоне
         self._check_value(self.max_value, 0, result)
 
         self._a = result
