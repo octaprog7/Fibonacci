@@ -18,7 +18,7 @@ class Fibonacci:
     """
 
     def __init__(self, max_value=0, limit=0):
-        self._init_()
+        self._init()
         self._set_limits(max_value, limit)
 
     def _set_limits(self, max_value=0, limit=0):
@@ -26,19 +26,25 @@ class Fibonacci:
         self.limit = limit
         self.max_value = max_value
 
-    def _init_(self):
+    def _init(self):
         """Ititial setup"""
         self._counter = 0
         self._a, self._b = 0, 1
 
-    def __next__(self):
-        if 0 < self.limit <= self._counter:
+    @staticmethod
+    def _check_value(value: int, minimum: int, maximum: int):
+        """Internal method. Do not use!"""
+        if minimum < value <= maximum:
             raise StopIteration
+
+    def __next__(self):
+        """Часть протокола итератора"""
+        # проверка. счетчик в диапазоне
+        self._check_value(self.limit, 0, self._counter)
 
         result = self._a + self._b
-
-        if 0 < self.max_value < result:
-            raise StopIteration
+        # проверка. результат в диапазоне
+        self._check_value(self.max_value, 0, result)
 
         self._a = result
         self._a, self._b = self._b, self._a
@@ -46,10 +52,11 @@ class Fibonacci:
         return result
 
     def __iter__(self):
-        return self  # FibIter()
+        """Часть протокола итератора"""
+        return self
 
     def reset(self, max_value=0, limit=0):
-        self._init_()
+        self._init()
         self._set_limits(max_value, limit)
 
     def __len__(self):
