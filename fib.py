@@ -18,34 +18,42 @@ class Fibonacci:
     """
 
     def __init__(self, max_value=0, limit=0):
+        self._init_()
+        self._set_limits(max_value, limit)
+
+    def _set_limits(self, max_value=0, limit=0):
+        """Limits setup"""
         self.limit = limit
         self.max_value = max_value
-        self.counter = 0
-        self.a, self.b = 0, 1
+
+    def _init_(self):
+        """Ititial setup"""
+        self._counter = 0
+        self._a, self._b = 0, 1
 
     def __next__(self):
-        if 0 < self.limit <= self.counter:
+        if 0 < self.limit <= self._counter:
             raise StopIteration
 
-        result = self.a + self.b
+        result = self._a + self._b
 
         if 0 < self.max_value < result:
             raise StopIteration
 
-        self.a = result
-        self.a, self.b = self.b, self.a
-        self.counter += 1
+        self._a = result
+        self._a, self._b = self._b, self._a
+        self._counter += 1
         return result
 
     def __iter__(self):
         return self  # FibIter()
 
-    def reset(self):
-        self.counter = 0
-        self.a, self.b = 0, 1
+    def reset(self, max_value=0, limit=0):
+        self._init_()
+        self._set_limits(max_value, limit)
 
     def __len__(self):
-        return self.counter
+        return self._counter
 
     def __del__(self):
         pass
