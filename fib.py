@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Each next element of the Fibonacci series is obtained by adding the previous two. Starting at 1 and 2,
-the first 10 items will be: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
+the first 10 items will be: 0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
 
 Copyright (c) 2021-2022, Roman Kaban.
 License:    GPL-3.0
@@ -17,11 +17,11 @@ class Fibonacci:
     max_value is the maximum value returned by the __next__ method. 0 - disabled
     """
 
-    def __init__(self, max_value=0, limit=0):
+    def __init__(self, max_value: int = 0, limit: int = 0):
         self._init()
         self._set_limits(max_value, limit)
 
-    def _set_limits(self, max_value=0, limit=0):
+    def _set_limits(self, max_value: int = 0, limit: int = 0):
         """Limits setup"""
         self.limit = limit
         self.max_value = max_value
@@ -37,7 +37,7 @@ class Fibonacci:
         if minimum < value <= maximum:
             raise StopIteration
 
-    def __next__(self):
+    def __next__(self) -> int:
         """Часть протокола итератора"""
         # Проверка. Счетчик в диапазоне
         self._check_value(self.limit, 0, self._counter)
@@ -55,11 +55,11 @@ class Fibonacci:
         """Часть протокола итератора"""
         return self
 
-    def reset(self, max_value=0, limit=0):
+    def reset(self, max_value: int = 0, limit: int = 0):
         self._init()
         self._set_limits(max_value, limit)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self._counter
 
     def __del__(self):
