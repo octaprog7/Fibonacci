@@ -17,19 +17,16 @@ class Fibonacci:
     max_value is the maximum value returned by the __next__ method. 0 - disabled
     """
 
-    def __init__(self, max_value: int = 0, limit: int = 0):
-        self._init()
-        self._set_limits(max_value, limit)
+    def __init__(self, max_value: int = 0, limit: int = 1000):
+        self._init(max_value, limit)
 
-    def _set_limits(self, max_value: int = 0, limit: int = 0):
+    def _init(self, max_value: int, limit: int):
+        """Initial setup"""
+        self._counter = 0
+        self._a, self._b = 0, 1
         """Limits setup"""
         self.limit = limit
         self.max_value = max_value
-
-    def _init(self):
-        """Ititial setup"""
-        self._counter = 0
-        self._a, self._b = 0, 1
 
     @staticmethod
     def _check_value(value: int, minimum: int, maximum: int):
@@ -55,9 +52,13 @@ class Fibonacci:
         """Часть протокола итератора"""
         return self
 
-    def reset(self, max_value: int = 0, limit: int = 0):
-        self._init()
-        self._set_limits(max_value, limit)
+    def reset(self):
+        self._init(self.max_value, self.limit)
+
+    def __str__(self):
+        """Instance string representation"""
+        return f"{self.__class__.__name__} class instance at {str.upper(hex(id(self)))}. limit: {self.limit}; \
+max value: {self.max_value}; counter: {self._counter}"
 
     def __len__(self) -> int:
         return self._counter
@@ -71,3 +72,5 @@ if __name__ == "__main__":
     # выражение-генератор
     lg = (i for i in F if i % 2 == 0 and i < 4_000_000)
     print(f"sum: {sum(lg)}")
+    #
+    print(F)
