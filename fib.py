@@ -9,6 +9,25 @@ License:    GPL-3.0
 __author__ = "Roman Kaban"
 __version__ = "0.9"
 
+from abc import ABC, abstractmethod
+
+
+class MultiIter(ABC):
+    """возвращает независимые(!) итераторы"""
+
+    def __init__(self):
+        self.iter_count = 0
+
+    @abstractmethod
+    def __next__(self):
+        pass
+
+    def __iter__(self):
+        if 0 == self.iter_count:  # первый запрос. возвращает себя!
+            return self
+        else:  # последующие запросы. возвращает новый(!) экземпляр.
+            return MultiIter()
+
 
 class Fibonacci:
     """
