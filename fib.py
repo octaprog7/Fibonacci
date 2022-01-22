@@ -6,11 +6,13 @@ Copyright (c) 2021-2022, Roman Kaban.
 License:    GPL-3.0
 """
 
+import multi_iter
+
 __author__ = "Roman Kaban"
 __version__ = "0.9"
 
 
-class Fibonacci:
+class Fibonacci(multi_iter.MultiIter):
     """
     An iterator class that returns a Fibonacci number each time __next__ is called.
     limit-the max number of numbers from the Fibonacci series that an instance of the class can produce. 0 - disabled
@@ -18,12 +20,16 @@ class Fibonacci:
     """
 
     def __init__(self, max_value: int = 0, limit: int = 1000):
-        self.__iter_count = 0
+        super().__init__()
         """Initial setup"""
         self._counter = 0
         self._a, self._b = 0, 1
         #
         self.setup(max_value, limit)
+
+    def make_instance(self):
+        """return instance of class."""
+        return Fibonacci()
 
     def setup(self, max_value: int, limit: int):
         """Limits setup after creation instance. For fine tune only!
@@ -50,14 +56,6 @@ class Fibonacci:
         self._a, self._b = self._b, self._a
         self._counter += 1
         return result
-
-    def __iter__(self):
-        """Часть протокола итератора"""
-        if 0 == self.__iter_count:  # первый запрос. возвращает себя!
-            self.__iter_count += 1
-            return self
-        else:  # последующие запросы. возвращает новый(!) экземпляр.
-            return Fibonacci()
 
     # def reset(self):
     #    self.setup(self.max_value, self.limit)
