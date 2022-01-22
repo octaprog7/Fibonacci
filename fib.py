@@ -9,27 +9,8 @@ License:    GPL-3.0
 __author__ = "Roman Kaban"
 __version__ = "0.9"
 
-from abc import ABC, abstractmethod
 
-
-class MultiIter(ABC):
-    """возвращает независимые(!) итераторы"""
-
-    def __init__(self):
-        self.__iter_count = 0
-
-    @abstractmethod
-    def __next__(self):
-        pass
-
-    def __iter__(self):
-        if 0 == self.__iter_count:  # первый запрос. возвращает себя!
-            return self
-        else:  # последующие запросы. возвращает новый(!) экземпляр.
-            return MultiIter()
-
-
-class Fibonacci(MultiIter):
+class Fibonacci:
     """
     An iterator class that returns a Fibonacci number each time __next__ is called.
     limit-the max number of numbers from the Fibonacci series that an instance of the class can produce. 0 - disabled
@@ -37,7 +18,7 @@ class Fibonacci(MultiIter):
     """
 
     def __init__(self, max_value: int = 0, limit: int = 1000):
-        super().__init__()
+        self.__iter_count = 0
         """Initial setup"""
         self._counter = 0
         self._a, self._b = 0, 1
@@ -45,7 +26,8 @@ class Fibonacci(MultiIter):
         self.setup(max_value, limit)
 
     def setup(self, max_value: int, limit: int):
-        """Limits setup after creation instance. For fine tune only!"""
+        """Limits setup after creation instance. For fine tune only!
+            Call this method now after __init__!!!"""
         self.limit = limit
         self.max_value = max_value
 
@@ -69,9 +51,13 @@ class Fibonacci(MultiIter):
         self._counter += 1
         return result
 
-    # def __iter__(self):
-    #    """Часть протокола итератора"""
-    #    return self
+    def __iter__(self):
+        """Часть протокола итератора"""
+        if 0 == self.__iter_count:  # первый запрос. возвращает себя!
+            self.__iter_count += 1
+            return self
+        else:  # последующие запросы. возвращает новый(!) экземпляр.
+            return Fibonacci()
 
     # def reset(self):
     #    self.setup(self.max_value, self.limit)
